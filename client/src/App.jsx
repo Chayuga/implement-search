@@ -1,12 +1,14 @@
 import './App.css';
+import APIBackendSearch from './components/APIBackendSearch';
 // import BasicSearch from './components/BasicSearch';
-import MuiltSearch from './components/MuiltSearch';
+// import MultiSearch from './components/MultiSearch';
 
 function App() {
   return (
     <div>
       {/* <BasicSearch /> */}
-      <MuiltSearch />
+      {/* <MultiSearch /> */}
+      <APIBackendSearch />
     </div>
   );
 }

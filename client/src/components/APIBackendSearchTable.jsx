@@ -18,7 +18,7 @@ import { useStateContext } from '../context/SearchProvider';
 
 import { columns, Users } from './users';
 
-const DataTable = () => {
+const APIBackendSearchTable = () => {
   const { query } = useStateContext();
   const { page, setPage } = useStateContext();
 
@@ -117,4 +117,4 @@ const DataTable = () => {
   );
 };
 
-export default DataTable;
+export default APIBackendSearchTable;

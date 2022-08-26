@@ -3,7 +3,7 @@ import { Box, Divider, InputBase, AppBar, Toolbar } from '@mui/material';
 
 import { styled, alpha } from '@mui/material/styles';
 import { Search as SearchIcon } from '@mui/icons-material';
-import DataTable from './Table';
+import MultiSearchTable from './MultiSearchTable';
 import { useStateContext } from '../context/SearchProvider';
 
 const Search = styled('div')(({ theme }) => ({
@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }));
 
-const MuiltSearch = () => {
+const MultiSearch = () => {
   const { setQuery } = useStateContext();
 
   return (
@@ -68,9 +68,9 @@ const MuiltSearch = () => {
         </Toolbar>
       </AppBar>
       <Divider />
-      <DataTable />
+      <MultiSearchTable />
     </Box>
   );
 };
 
-export default MuiltSearch;
+export default MultiSearch;
