@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   }
 }));
 
-const MuiltSearch = () => {
+const MultiSearch = () => {
   const { setQuery } = useStateContext();
 
   return (
@@ -73,4 +73,4 @@ const MuiltSearch = () => {
   );
 };
 
-export default MuiltSearch;
+export default MultiSearch;
