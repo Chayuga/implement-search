@@ -1,0 +1,14 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Search API using a backend server",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Rodgers Chayuga",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
