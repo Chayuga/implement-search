@@ -1,3 +1,25 @@
+export const columns = [
+  { id: 'first_name', label: 'First Name', minWidth: 170 },
+  {
+    id: 'last_name',
+    label: 'Last Name',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'email',
+    label: 'Email',
+    minWidth: 170,
+    align: 'right'
+  },
+  {
+    id: 'gender',
+    label: 'Gender',
+    minWidth: 170,
+    align: 'right'
+  }
+];
+
 export const Users = [
   {
     id: 1,
