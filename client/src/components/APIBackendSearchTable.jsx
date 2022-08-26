@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import {
   Paper,
@@ -11,33 +12,29 @@ import {
   Pagination,
   Box,
   Typography
-  //   TableBody
 } from '@mui/material';
 
 import { useStateContext } from '../context/SearchProvider';
 
-import { columns, Users } from './users';
+import { columns } from './users';
 
 const APIBackendSearchTable = () => {
   const { query } = useStateContext();
-  const { page, setPage } = useStateContext();
+  const [data, setData] = useState([]);
 
-  const keys = ['first_name', 'last_name', 'email'];
-
-  const search = (Users) => {
-    return Users.filter((user) => keys.some((key) => user[key].toLowerCase().includes(query)));
-  };
-
-  const rowsPerPage = 10;
+  const { page, setPage, rowsPerPage } = useStateContext();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(+event.target.value);
-  //   setPage(0);
-  // };
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await axios.get(`http://localhost:3000?q=${query}`);
+      setData(res.data);
+    };
+    fetchUsers();
+  }, [query]);
 
   return (
     <Paper sx={{ width: '100%' }}>
@@ -56,24 +53,20 @@ const APIBackendSearchTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {search(Users)
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((user) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={user.code}>
-                    {columns.map((column) => {
-                      const value = user[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+            {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => {
+              return (
+                <TableRow hover role="checkbox" tabIndex={-1} key={user.code}>
+                  {columns.map((column) => {
+                    const value = user[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number' ? column.format(value) : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -107,7 +100,7 @@ const APIBackendSearchTable = () => {
               border: '1px solid #BDBDBD',
               borderRadius: '5px'
             }}
-            count={Users.length}
+            count={data.length}
             page={page}
             onChange={handleChangePage}
           />
