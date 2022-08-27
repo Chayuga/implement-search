@@ -1,9 +1,11 @@
 import React from 'react';
-import { Box, Divider, InputBase, AppBar, Toolbar } from '@mui/material';
+import { Box, Divider, InputBase, AppBar, Toolbar, Button } from '@mui/material';
+
+import { useDownloadExcel } from 'react-export-table-to-excel';
 
 import { styled, alpha } from '@mui/material/styles';
-import { Search as SearchIcon } from '@mui/icons-material';
-import DataTable from './Table';
+import { Search as SearchIcon, FilterList } from '@mui/icons-material';
+import MultiSearchTable from './MultiSearchTable';
 import { useStateContext } from '../context/SearchProvider';
 
 const Search = styled('div')(({ theme }) => ({
@@ -49,12 +51,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const MultiSearch = () => {
-  const { setQuery } = useStateContext();
+  const { setQuery, tableRef } = useStateContext();
+
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: tableRef.current,
+    filename: 'Users table',
+    sheet: 'Users'
+  });
 
   return (
     <Box>
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -65,10 +73,33 @@ const MultiSearch = () => {
               onChange={(e) => setQuery(e.target.value)}
             />
           </Search>
+          <Box>
+            <Button
+              onClick={() => {}}
+              sx={{
+                margin: '5px',
+                color: 'white',
+                border: '1px solid white',
+                borderRadius: '5px'
+              }}>
+              Filter <FilterList />
+            </Button>
+
+            <Button
+              onClick={onDownload}
+              sx={{
+                margin: '5px',
+                color: 'white',
+                border: '1px solid white',
+                borderRadius: '5px'
+              }}>
+              Export excel
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
       <Divider />
-      <DataTable />
+      <MultiSearchTable />
     </Box>
   );
 };
