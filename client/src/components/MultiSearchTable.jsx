@@ -18,7 +18,16 @@ import { useStateContext } from '../context/SearchProvider';
 
 import { columns, Users } from './users';
 
-const MultiSearchTable = () => {
+const MultiSearchTable = ({ onRequestSort }) => {
+  const createSortHandler = (property) => (event) => {
+    onRequestSort(event, property);
+  };
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+  };
+
   const { query, page, setPage, tableRef } = useStateContext();
 
   const keys = ['first_name', 'last_name', 'email'];
@@ -41,6 +50,7 @@ const MultiSearchTable = () => {
             <TableRow>
               {columns.map((column) => (
                 <TableCell
+                  onRequestSort={handleRequestSort}
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}>
