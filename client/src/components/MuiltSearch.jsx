@@ -51,12 +51,17 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const MultiSearch = () => {
+<<<<<<< HEAD:client/src/components/MultiSearch.jsx
+  const { setQuery, tableRef } = useStateContext();
+
   const { onDownload } = useDownloadExcel({
     currentTableRef: tableRef.current,
     filename: 'Users table',
     sheet: 'Users'
   });
+=======
   const { setQuery } = useStateContext();
+>>>>>>> 135f3204e85f329a0e7463e9d0ca34ab81ac89d5:client/src/components/MuiltSearch.jsx
 
   return (
     <Box>
